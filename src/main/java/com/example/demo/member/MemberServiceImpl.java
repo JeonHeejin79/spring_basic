@@ -1,5 +1,9 @@
 package com.example.demo.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+
 /**
  * -> 회원 도메인 설계
  * -> 회원 도메인 개발
@@ -13,7 +17,7 @@ package com.example.demo.member;
 //
 //   MemberServiceImpl 입장에서 보면 의존관계를 마치 외부에서 주입해주는 것 같다고 해서
 //   DI(Dependency Injection) 우리말로 의존관계 주입 또는 의존성 주입이라 한다.
-
+@Component
 public class MemberServiceImpl implements MemberService{
 
     // Ctrl + Shift + Enter : 자동완성 + 세미콜론
@@ -26,6 +30,7 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
 
     // 생성자를 통해서 검색 -> 추상화에만 의존하게된다.
+    @Autowired // 의존관계 주입
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

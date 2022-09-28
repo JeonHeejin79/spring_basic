@@ -4,6 +4,8 @@ import com.example.demo.discount.DiscountPolicy;
 import com.example.demo.discount.RateDiscountPolicy;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 1. SOLID란?
@@ -21,13 +23,14 @@ import com.example.demo.member.MemberRepository;
  *  -> 주문과 할인 도메인 설계
  *  -> 주문과 할일 도메인 계발
  */
+@Component
 public class OrderServiceImpl implements OrderService {
 
-    // private final MemberRepository memberRepository = new MemoryMemberRepository();
-    // private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
-    private final MemberRepository memberRepository; // -> 객체 인스턴스를 생성하고, 참조값 을 전달해서 연결된다.
-    private final DiscountPolicy discountPolicy; // -> 객체 인스턴스를 생성하고, 참조값 을 전달해서 연결된다.
+    /** 생성자 주입 */
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
 
+    @Autowired // 생성자가 1개만 잇는경우 Autowired 생략 가능
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
