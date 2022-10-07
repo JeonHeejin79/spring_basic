@@ -5,6 +5,7 @@ import com.example.demo.member.Grade;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemoryMemberRepository;
 import com.example.demo.order.Order;
+import com.example.demo.order.OrderServiceImpl;
 import com.example.demo.order.OrderServiceImpl2;
 import com.example.demo.order.OrderServiceImpl3;
 import org.assertj.core.api.Assertions;
@@ -38,7 +39,7 @@ public class AutowiredTest2 {
     void createOrder() {
         OrderServiceImpl2 orderServiceImpl2 = new OrderServiceImpl2();
 
-        orderServiceImpl2.createOrder(1l, "itemA", 1000);
+        // orderServiceImpl2.createOrder(1l, "itemA", 1000);
     }
 
     @Test

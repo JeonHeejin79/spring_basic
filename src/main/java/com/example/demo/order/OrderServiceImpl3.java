@@ -4,6 +4,7 @@ import com.example.demo.discount.DiscountPolicy;
 import com.example.demo.discount.RateDiscountPolicy;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -40,9 +41,10 @@ public class OrderServiceImpl3 implements OrderService {
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
-    public OrderServiceImpl3(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    @Autowired
+    public OrderServiceImpl3(MemberRepository memberRepository, DiscountPolicy fixDiscountPolicy) {
         this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
+        this.discountPolicy = fixDiscountPolicy;
     }
 
 //    public init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {

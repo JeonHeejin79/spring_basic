@@ -59,8 +59,8 @@ public class ApplicationContextExtendsFindTest {
     @Test
     @DisplayName("특정 하위 타입으로 조회")
     void findBeanBySubType() {
-        assertThrows(NoUniqueBeanDefinitionException.class,
-                () -> ac.getBean(RateDiscountPolicy.class));
+//        assertThrows(NoUniqueBeanDefinitionException.class,
+//                () -> ac.getBean(RateDiscountPolicy.class));
     }
 
     @Test

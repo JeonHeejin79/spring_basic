@@ -26,7 +26,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderServiceImpl implements OrderService {
 
-    /** 생성자 주입 */
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
@@ -46,14 +45,14 @@ public class OrderServiceImpl implements OrderService {
     //      추상 인터페이스(DiscuontPolicy) 에 의존하면서
     //      구현 클래스(FixDiscountPolicy, RateDiscountPolicy) 에도 의존하고 있다.
     //  - FixDiscountPolicy를 RateDiscountPolicy 로 변경하는 순간 OrderServiceImpl 의 소스코드도 함께 변경해야 한다. -> OCP 위반
-    private final DiscountPolicy rateDiscountPolicy = new RateDiscountPolicy();
+    // private final DiscountPolicy rateDiscountPolicy = new RateDiscountPolicy();
 
     // 인터페이스에만 의지하도록 코드를 변경한다.
     // -> null point exception 이 발생한다.
     // > 해결방안 : 이문제를 해결하려면 누군가가 클라이언트인 OrderServiceImpl 에 DiscountPolicy 의 구현 객체를 대신 생성하고 주입해줘야 한다.
     //             ㄴ AppConfig : 애플리케이션의 전체 동작 방식을 구성(config) 하기 위해 "구현 객체를 생성" 하고 "연결" 하는 책임을 가지는 별도의 설정 클래스
 
-    private DiscountPolicy discountPolicy2;
+    // private DiscountPolicy discountPolicy2;
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
