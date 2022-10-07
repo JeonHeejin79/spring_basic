@@ -41,11 +41,22 @@ import org.springframework.context.annotation.Configuration;
  *     - 코드가 아니라 설정 정보를 사용하기 떄문에 코드를 고칠 수 없는
  *        외부 라이브러리에도 초기화, 종료 메서드를 적용할 수 있다.
  *   ㄴ 종료 메소드의 추론
- *      - @Bean 의 destroyMethod 에는 특별한 기능이 있따.
+ *      - @Bean 의 destroyMethod 에는 특별한 기능이 있다.
  *      - 라이브러리는 대부분 close, shutdown 이라는 이름의 종료 메서드를 사용한다.
  *      - @Bean 의 destroyMethod 는 기본값이 (inferred) (추론) 으로 등록되어 있다.
  *      - 이 추론 기능은 close, shutdown 라는 이름의 메서드를 자동으로 호출해준다.
+ *         이름 그대로 종료 메서드를 추론해서 호출해준다.
+ *      - 따라서 직접 스프링 빈으로 등록하면 종료 메서드는 따로 적어주지 않아도 잘 동작한다.
+ *      - 추론 기능을 사용하기 싫으면 destroyMethod = "" 처럼 빈 공백을 지정하면 된다.
  *
+ *  4. 애노테이션 @PostContruct, @PreDstroy
+ *    - 최신 스프링에서 가낭 권장하는 방법이다.
+ *    - 애노테이션 하나만 붙이면 되므로 매우 편리하다.
+ *    - 패키지를 잘보면 javax.annotation.PostConstruct 이다. 스프링에 종속적인
+ *       기술이 아니라 JSR-250 라는 자바 표준이다. 따라서 스프링이 아닌 다른 컨테이너에도 동작한다.
+ *    - 컴포넌트 스캔과 잘 어울린다.
+ *    - 단점 : 외부 라이브러리에는 적용하지 못한다는 것이다. 외부 라이브라리를 초기화
+ *             종료 해야하면 @Bean 기능을 사용하자
  * */
 public class BeanLifeCycleTest {
 
@@ -54,16 +65,30 @@ public class BeanLifeCycleTest {
         ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext(LifeCycleConfig.class);
 
         NetworkClient client = ac.getBean(NetworkClient.class);
+
+        NetworkClient2 client2 = ac.getBean(NetworkClient2.class);
+
+        NetworkClient3 client3 = ac.getBean(NetworkClient3.class);
+
         ac.close();
+
     }
 
-    @Test
+/*    @Test
     public void lifeCycleTest2() {
         ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext(LifeCycleConfig.class);
 
         NetworkClient2 client = ac.getBean(NetworkClient2.class);
         ac.close();
     }
+
+    @Test
+    public void lifeCycleTest3() {
+        ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext(LifeCycleConfig.class);
+
+        NetworkClient3 client = ac.getBean(NetworkClient3.class);
+        ac.close();
+    }*/
 
     @Configuration
     static class LifeCycleConfig {
@@ -76,9 +101,16 @@ public class BeanLifeCycleTest {
 
         @Bean(initMethod = "init", destroyMethod = "close")
         public NetworkClient2 networkClient2() {
-            NetworkClient2 networkClient2 = new NetworkClient2();
-            networkClient2.setUrl("http://hello-spring.dev");
-            return networkClient2;
+            NetworkClient2 networkClient = new NetworkClient2();
+            networkClient.setUrl("http://hello-spring.dev");
+            return networkClient;
+        }
+
+        @Bean
+        public NetworkClient3 networkClient3() {
+            NetworkClient3 networkClient = new NetworkClient3();
+            networkClient.setUrl("http://hello-spring.dev");
+            return networkClient;
         }
     }
 }
