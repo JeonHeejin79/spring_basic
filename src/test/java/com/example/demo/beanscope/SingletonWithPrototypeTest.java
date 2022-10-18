@@ -22,8 +22,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 /***
  * 프로토타입 스코프
  * 프로토타입 스코프 - 싱글톤 빈과 함께 사용시 문제점
+ *
+ * ObjectProvider
+ * JSR-330 Provider
+ *
+ * JPA - HIBERNATE : Hibernate 는 JPA 의 구현체이다.
+ *
+ * Spring  ex)@Autowired
+ * 표준    ex) @PostConstruct,  @PreDestroy
  */
-public class SingletonsWithPrototypeTest1 {
+public class SingletonWithPrototypeTest {
+
 
     @Test
     void prototypeFind() {
@@ -149,6 +158,7 @@ public class SingletonsWithPrototypeTest1 {
      * - 자바 표준이고, 기능이 단순하므로 단위테스트를 만들어간 mock 코드를 만들기는 훨씬 쉬워진다.
      * - Provider 는 지금 딱 필요한 DL 정도의 기능만 제공한다.
      * - 스프링이 아닌 다른 컨테이너에서 사용해야 할 일이 있다면 적절하다.
+     * - 자바 표준이나 라이브러리가 필요하다.
      * */
     @Scope("singleton")
     static class ClientBean4 {
