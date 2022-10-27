@@ -1,7 +1,5 @@
 package com.example.demo.singleton;
 
-import org.junit.jupiter.api.Test;
-
 /**
  * -> 싱글톤 패턴
  *  - 클래스와 인스턴스가 딱 1개만 생성되는 것을 보장하는 디자인 패턴이다.

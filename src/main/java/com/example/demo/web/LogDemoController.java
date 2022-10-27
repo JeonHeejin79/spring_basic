@@ -1,6 +1,6 @@
 package com.example.demo.web;
 
-import com.example.demo.common.MyLogger;
+import com.example.demo.web.common.MyLogger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Controller;
